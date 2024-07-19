@@ -1,0 +1,28 @@
+# Node.js modülleri
+node_modules/
+
+# Derleme çıktıları
+dist/
+build/
+
+# Çeşitli IDE ve editör ayar dosyaları
+.vscode/
+.idea/
+
+# Çevresel değişkenler
+.env
+
+# Log dosyaları
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Diğer geçici dosyalar
+.DS_Store
+*.swp
+*.swo
+*.swn
+
+# Paket kilit dosyaları (isteğe bağlı, genellikle takip edilir)
+# package-lock.json
+# yarn.lock
