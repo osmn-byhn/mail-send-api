@@ -8,32 +8,36 @@ const port = process.env.PORT;
 // Middleware
 app.use(bodyParser.json());
 
-// Nodemailer konfigürasyonu
-const transporter = nodemailer.createTransport({
-    service: 'gmail', // Gmail kullanıyorsanız
-    auth: {
-        user: process.env.EMAIL, // Buraya kendi e-posta adresinizi girin
-        pass: process.env.PASSWORD // Buraya kendi e-posta şifrenizi girin
-    }
-});
-
 // E-posta gönderme endpointi
-app.post('/send-email', (req, res) => {
-    const { to, subject, text } = req.body;
+app.post('/send-email', async (req, res) => {
+    const { to, subject, text, email, password } = req.body;
+
+    if (!to || !subject || !text || !email || !password) {
+        return res.status(400).send('Missing required fields');
+    }
+
+    // Dinamik olarak transporter oluştur
+    const transporter = nodemailer.createTransport({
+        service: 'gmail', // Gmail kullanıyorsanız
+        auth: {
+            user: email, // Buraya dinamik olarak e-posta adresini girin
+            pass: password // Buraya dinamik olarak e-posta şifresini girin
+        }
+    });
 
     const mailOptions = {
-        from: process.env.EMAIL, // Gönderen e-posta adresi
+        from: email, // Gönderen e-posta adresi
         to,
         subject,
         text
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return res.status(500).send(error.toString());
-        }
+    try {
+        const info = await transporter.sendMail(mailOptions);
         res.status(200).send('Email sent: ' + info.response);
-    });
+    } catch (error) {
+        res.status(500).send(error.toString());
+    }
 });
 
 app.listen(port, () => {
