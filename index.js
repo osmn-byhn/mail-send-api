@@ -1,12 +1,14 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+const cors = require('cors'); // CORS'i yükleyin
 require('dotenv').config(); // dotenv'i yükleyin
 const app = express();
 const port = process.env.PORT;
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors()); // CORS middleware'ini kullanın
 
 // E-posta gönderme endpointi
 app.post('/send-email', async (req, res) => {
