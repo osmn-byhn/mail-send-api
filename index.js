@@ -10,6 +10,10 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+
 // E-posta gönderme endpointi
 app.post('/send-email', async (req, res) => {
     const { to, subject, text, email, password, service } = req.body;
