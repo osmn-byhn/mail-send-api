@@ -1,34 +1,36 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // CORS'i yükleyin
-require('dotenv').config(); // dotenv'i yükleyin
+const cors = require('cors');
+require('dotenv').config();
 const app = express();
 const port = process.env.PORT;
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors()); // CORS middleware'ini kullanın
+app.use(cors());
 
 // E-posta gönderme endpointi
 app.post('/send-email', async (req, res) => {
-    const { to, subject, text, email, password } = req.body;
+    const { to, subject, text, email, password, service } = req.body;
 
     if (!to || !subject || !text || !email || !password) {
         return res.status(400).send('Missing required fields');
     }
 
-    // Dinamik olarak transporter oluştur
+    // Dinamik olarak service seçeneğini kontrol et
+    const selectedService = service || 'gmail'; // Service belirtilmemişse varsayılan olarak Gmail kullanılır
+
     const transporter = nodemailer.createTransport({
-        service: 'gmail', // Gmail kullanıyorsanız
+        service: selectedService,
         auth: {
-            user: email, // Buraya dinamik olarak e-posta adresini girin
-            pass: password // Buraya dinamik olarak e-posta şifresini girin
+            user: email,
+            pass: password
         }
     });
 
     const mailOptions = {
-        from: email, // Gönderen e-posta adresi
+        from: email,
         to,
         subject,
         text
