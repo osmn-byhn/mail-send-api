@@ -1,4 +1,3 @@
-Aşağıda, API'nizi kullanarak e-posta göndermek için hazırlanmış README.md dosyasını bulabilirsiniz. Bu dosya, API'nizin nasıl kullanılacağını açıklayan bilgileri içerir.
 
 ```markdown
 # Send Email API
