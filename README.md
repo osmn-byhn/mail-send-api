@@ -6,7 +6,7 @@ This API allows you to send emails using different email services like Gmail, Ou
 
 ## API Endpoint
 
-**URL:** `https://mail-send-api2.onrender.com/send-mail`
+**URL:** `https://mail-send-api2.onrender.com/send-email`
 
 **Method:** `POST`
 
@@ -25,7 +25,7 @@ This API allows you to send emails using different email services like Gmail, Ou
 
 ### Sending an Email with Gmail (Default)
 ```sh
-curl -X POST https://mail-send-api2.onrender.com/send-mail \
+curl -X POST https://mail-send-api2.onrender.com/send-email \
 -H "Content-Type: application/json" \
 -d '{
   "email": "your-email@gmail.com",
@@ -38,7 +38,7 @@ curl -X POST https://mail-send-api2.onrender.com/send-mail \
 
 ### Sending an Email with Outlook
 ```sh
-curl -X POST https://mail-send-api2.onrender.com/send-mail \
+curl -X POST https://mail-send-api2.onrender.com/send-email \
 -H "Content-Type: application/json" \
 -d '{
   "email": "your-email@outlook.com",
@@ -52,7 +52,7 @@ curl -X POST https://mail-send-api2.onrender.com/send-mail \
 
 ### Sending an Email with Yandex
 ```sh
-curl -X POST https://mail-send-api2.onrender.com/send-mail \
+curl -X POST https://mail-send-api2.onrender.com/send-email \
 -H "Content-Type: application/json" \
 -d '{
   "email": "your-email@yandex.com",
