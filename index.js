@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-// E-posta gönderme endpointi
 app.post('/send-email', async (req, res) => {
     const { to, subject, text, email, password, service } = req.body;
 
@@ -22,16 +21,45 @@ app.post('/send-email', async (req, res) => {
         return res.status(400).send('Missing required fields');
     }
 
-    // Dinamik olarak service seçeneğini kontrol et
-    const selectedService = service || 'gmail'; // Service belirtilmemişse varsayılan olarak Gmail kullanılır
+    let transporterConfig;
 
-    const transporter = nodemailer.createTransport({
-        service: selectedService,
-        auth: {
-            user: email,
-            pass: password
-        }
-    });
+    switch (service) {
+        case 'gmail':
+            transporterConfig = {
+                service: 'gmail',
+                auth: {
+                    user: email,
+                    pass: password
+                }
+            };
+            break;
+        case 'outlook':
+            transporterConfig = {
+                host: 'smtp-mail.outlook.com',
+                port: 587,
+                secure: false,
+                auth: {
+                    user: email,
+                    pass: password
+                }
+            };
+            break;
+        case 'yandex':
+            transporterConfig = {
+                host: 'smtp.yandex.com',
+                port: 465,
+                secure: true,
+                auth: {
+                    user: email,
+                    pass: password
+                }
+            };
+            break;
+        default:
+            return res.status(400).send('Unsupported email service');
+    }
+
+    const transporter = nodemailer.createTransport(transporterConfig);
 
     const mailOptions = {
         from: email,
