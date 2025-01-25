@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Send Email API Documentation</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+      integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      p {
+        line-height: 1.6;
+        color: #666;
+      }
+
+      code {
+        background: #f4f4f4;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-family: Consolas, "Courier New", monospace;
+      }
+
+      pre {
+        background: #272822;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      pre code {
+        background: none;
+        color: inherit;
+      }
+
+      .note {
+        background: #fffbcc;
+        border-left: 6px solid #ffeb3b;
+        padding: 10px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f4f4f4;
+        color: #333;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 15px;
+          margin: 20px auto;
+        }
+
+        pre {
+          padding: 10px;
+        }
+
+        table,
+        th,
+        td {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Send Email API</h1>
+      <p>
+        This API allows you to send emails using different email services like
+        Gmail, Outlook, and Yandex. You can dynamically specify the email
+        service, or if none is provided, it defaults to Gmail.
+      </p>
+
+      <h2>API Endpoint</h2>
+      <p>
+        <strong>URL:</strong>
+        <code>https://mail-send-api2.onrender.com/send-email</code>
+      </p>
+      <p><strong>Method:</strong> <code>POST</code></p>
+
+      <h2>Request Body Parameters</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>email</code></td>
+            <td>string</td>
+            <td>Your email address</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><code>password</code></td>
+            <td>string</td>
+            <td>Your email account's app password</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><code>to</code></td>
+            <td>string</td>
+            <td>Recipient's email address</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><code>subject</code></td>
+            <td>string</td>
+            <td>Subject of the email</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><code>text</code></td>
+            <td>string</td>
+            <td>Body of the email</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><code>service</code></td>
+            <td>string</td>
+            <td>
+              (Optional) Email service provider (<code>gmail</code>,
+              <code>outlook</code>, <code>yandex</code>). Defaults to
+              <code>gmail</code> if not provided.
+            </td>
+            <td>No</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Example Usage</h2>
+
+      <h3>Sending an Email with Gmail (Default)</h3>
+      <pre><code>curl -X POST https://mail-send-api2.onrender.com/send-email \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "your-email@gmail.com",
+  "password": "your-gmail-app-password",
+  "to": "send-to-email@mail.com",
+  "subject": "Subject",
+  "text": "message text"
+}'</code></pre>
+
+      <h3>Sending an Email with Outlook</h3>
+      <pre><code>curl -X POST https://mail-send-api2.onrender.com/send-email \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "your-email@outlook.com",
+  "password": "your-outlook-app-password",
+  "to": "send-to-email@mail.com",
+  "subject": "Subject",
+  "text": "message text",
+  "service": "outlook"
+}'</code></pre>
+
+      <h3>Sending an Email with Yandex</h3>
+      <pre><code>curl -X POST https://mail-send-api2.onrender.com/send-email \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "your-email@yandex.com",
+  "password": "your-yandex-app-password",
+  "to": "send-to-email@mail.com",
+  "subject": "Subject",
+  "text": "message text",
+  "service": "yandex"
+}'</code></pre>
+
+      <div class="note">
+        <strong>Note:</strong>
+        <p>
+          Make sure you have enabled "Less secure app access" or generated an
+          "App Password" for your email account to use this API.
+        </p>
+        <p>
+          The <code>service</code> parameter is optional. If not provided, the
+          API will default to using Gmail.
+        </p>
+      </div>
+
+      <h2>Error Handling</h2>
+      <p>
+        If any required fields are missing, the API will return a
+        <code>400 Bad Request</code> status with an appropriate error message.
+      </p>
+      <p>
+        If there is an issue with sending the email, the API will return a
+        <code>500 Internal Server Error</code> status with the error details.
+      </p>
+      <div style="display: flex; gap: 0.5">
+        <a
+          href="https://github.com/osmn-byhn/mail-send-api"
+          style="
+            background-color: #272822;
+            padding: 15px;
+            color: #fff;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+          "
+        >
+          <i class="bi bi-github"></i> GitHub
+        </a>
+        <a
+          href="https://osmanbeyhan.com/"
+          style="
+            background-color: #1e37f8;
+            padding: 15px;
+            color: #fff;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 15px;
+          "
+        >
+          <i class="bi bi-globe2"></i> Osman Beyhan
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
